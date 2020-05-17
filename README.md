@@ -2,9 +2,9 @@ Gridlock Network
 
 ## A secure and private cryptocurrency storage service
 
-[devs@gridlock.network](mailto:devs@gridlock.net)
+Author: Derek Rodriguez <br> Contributors:  Daniel Marzec, Franklin Willemen, Laura Weindorf
 
-V1.0 May 2020
+[devs@gridlock.network](mailto:devs@gridlock.net)<br>V1.0 May 2020
 
 ### Abstract 
 
