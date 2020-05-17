@@ -1,4 +1,4 @@
-Gridlock Network
+# Gridlock Network
 
 ## A secure and private cryptocurrency storage service
 
