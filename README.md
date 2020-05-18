@@ -177,7 +177,7 @@ With this architecture, funds transfer and transaction signing occur as follows:
 
 The second state is much like the first, except it eliminates the communication hub. 
 
-<img src="https://github.com/GridlockNetwork/Whitepaper/blob/master/poc_architecture.png">
+<img src="https://github.com/GridlockNetwork/Whitepaper/blob/master/arch.png">
 
 With this architecture, funds transfer and transaction signing occur as follows:
 
