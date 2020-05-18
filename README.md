@@ -164,7 +164,7 @@ There are two proposed states for transaction signing based on the maturity of t
 
 Note: The decision to include a central point of communication was not made lightly as it goes against the ethos of the blockchain community. With the understanding that a central communication-only hub *does not affect the security of the product*, we decided to incorporate this in the initial release while we stabilize the rest of the network. 
 
-<img src="https://github.com/GridlockNetwork/Resources/blob/master/images/Key%20Signing%20Architecture%20-%20phase1.png">
+<img src="https://github.com/GridlockNetwork/Whitepaper/blob/master/poc_architecture.png">
 
 With this architecture, funds transfer and transaction signing occur as follows:
 
