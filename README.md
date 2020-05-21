@@ -1,4 +1,4 @@
-# Gridlock Network
+![](gridlock_main_logo.png)
 
 ## A secure and private cryptocurrency storage service
 
