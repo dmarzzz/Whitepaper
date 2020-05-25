@@ -8,8 +8,9 @@ Author: Derek Rodriguez <br> Contributors:  Daniel Marzec, Franklin Willemen, La
 
 ### Abstract 
 
-Gridlock Network is a distributed keystore using a variety of network devices for increased security. Private keys are split into shares using the full-threshold ECDSA signature scheme, a t of n signature scheme, with a minimum recommendation of 3 of 5 shares for a rebuild threshold. Key shares are distributed to network devices for storage and transaction signing. The primary device in the Gridlock Network is Enigma's Secret Network, which makes Gridlock a network of networks. Nodes on the Secret Network use Intel's trusted execution environments, called enclaves, to ensure secrecy of stored information. This insurance protects against collusion of participating nodes and increases availability due to share distribution across the entire Secret Network. Gridlock enhances this security and protects against side-channel attacks by distributing shares to non-Enigma devices to protect against the risk of broken enclaves. Additional devices include personal devices, trusted acquaintance devices, personal cloud devices,
-and trusted key store services like Gridlock Watchlight.
+Gridlock Network is a distributed keystore using a grid of interconnected storage participants to securely lock cryptocurrency assets and sensitive information without the use of a centralised authority. It provides all the security and usability of an exchange with the control and privacy of personal storage. 
+
+The network uses two primary mechanisms for increased security. We utilise Enigma’s Secret Network, which implements Intel Trusted Execution Environments (TEEs) to ensure secrecy of stored information. This protects against collusion of participating nodes and allows Gridlock to safely replicate key shares across many devices, significantly improving the durability and reliability of Gridlock’s Network. We split private keys into shares using full-threshold ECDSA signature scheme (TSS), a t-of-n signature scheme, with a minimum recommended rebuild threshold of 3 out of 5 shares. Key shares are distributed to a variety of storage devices, each adding protection from different attack vectors and failure points, increasing the overall strength of the distributed keystore. The combination of these two technologies allows us to capitalise on the strengths of TEEs while mitigating risks associated with side-channel attacks that compromise those strengths. Gridlock Network facilitates professional key management, allowing users to store private information for any cryptocurrency and interact with any blockchain network. 
 
 ## Overview
 
@@ -22,8 +23,9 @@ and trusted key store services like Gridlock Watchlight.
 
 - Primary devices 
 - Additional devices
-- Full-threshold ECDSA
-- Intel SGX
+- Intel Trusted Execution Environments (TEEs)
+- Full-threshold ECDSA Threshold Signature Scheme (TSS)
+- Side-channel attacks
 
 [User Experience](#user-experience) 
 
@@ -90,7 +92,7 @@ Key shares are distributed across multiple devices to gain the security benefits
 
 ### Primary device(s)
 
-Enigma's privacy-preserving network is the primary share store option in Gridlock's network due to its high availability and usage of secure SGX enclaves. We plan to use this network to store multiple key shares, as long as the network does not control a majority of shares. This strategy allows Gridlock to leverage the strength of a privacy-preserving network while removing the risks associated with compromised SGX enclaves.
+Enigma's privacy-preserving network is the primary share store option in Gridlock's network due to its high availability and usage of secure TEE enclaves. We plan to use this network to store multiple key shares, as long as the network does not control a majority of shares. This strategy allows Gridlock to leverage the strength of a privacy-preserving network while removing the risks associated with compromised TEE enclaves.
 
 ### Additional devices
 
@@ -110,15 +112,23 @@ One or more trusted acquaintances can store a key share using the client-side ap
 
 A trusted key store service, like Gridlock Watchlight, can store a key share and provide additional protection not available in other "passive" storage options. This option adds benefits of modern FinTech security practices, like suspicious transactions, without the ultimate control of a full key store service. 
 
-### Full-threshold ECDSA
+### Intel Trusted Execution Environments (TEEs)
 
-The Gridlock Vault will utilize a full-threshold ECDSA. Elliptic Curve Digital Signature Algorithm(ECDSA) is a standardized signing algorithm that is used in Transport Layer Security(TLS), code signing, cryptocurrency and more. Full-threshold means that any t-out-of-n parties can sign a message; thus, this protocol would allow distributed signing and key-generation with any <code>t <= n</code>. Securely computing ECDSA in a distributed manner, means that a <code>t-of-n</code> threshold is needed for the protection of the private key. Splitting the secret key between multiple devices avoids a single point of failure since no single device has access to the full private key. A <code>t-of-n</code> threshold signature ensures that any <code>t+1</code> devices which store a piece of the private key can jointly sign a message, but no colluding parties can forge a signature.
+The Secret Network is solving the major issues of privacy and scalability currently impacting available public blockchains and decentralised application platforms. The network leverages a Trusted Execution Environments(TEE), using Intel's Software Guard Extensions(SGX) technology, to protect data from unwanted observers while still allowing for computations using the data. TEEs use public-key cryptography to encrypt data within a secure area of a CPU, called an enclave. A private key is created at the time of CPU fabrication and is never stored anywhere other than the enclave. Information entering or leaving the enclave is encrypted with its private key to protect it from unwanted observers. Intel’s TEEs enable the execution of security-critical application code in isolation, even when running on an untrusted device. 
+
+This technology reduces the attack surface significantly(App + Processor) and offers a scalable security solution in a mainstream environment. This architecture is especially useful in cloud computing applications where users outsource data processing to external infrastructure. It allows for secure computations and storage without the need to trust the cloud provider or software stack.
+
+### Full-threshold ECDSA Threshold Signature Scheme (TSS)
+     
+Full-threshold Elliptic Curve Digital Signature Algorithm(ECDSA) is a standardised signing algorithm. It allows for the distribution and rebuilding of a private key across <code>n</code> number of parties. Full-threshold means that any t-out-of-n parties can sign a message; thus, this protocol would allow distributed signing and key-generation with any <code>t <= n</code>. Securely computing ECDSA in a distributed manner, means that a <code>t-of-n</code> threshold is needed for the protection of the private key. Splitting the secret key between multiple devices avoids a single point of failure since no single device has access to the full private key. A <code>t-of-n</code> threshold signature ensures that any <code>t+1</code> devices which store a piece of the private key can jointly sign a message, but no colluding parties can forge a signature. 
 
 For more details on full-threshold ECDSA for distributed key generation and signing the reader is referred to the paper by Lindell et al. <sup>[7]</sup>.
 
-### Intel SGX
+### Side-channel attacks
 
-The Secret Network is solving the major issues of privacy and scalability currently impacting available public blockchains and decentralized application (dApp) platforms. The network leverages Intel's latest Trusted execution environments(TEE), Intel's Software Guard Extensions(SGX), technology to protect data while still allowing for computation over the data. Intel's SGX enables the execution of security-critical application code, called enclaves, in isolation from the untrusted system  software. The SGX reduces the attack surface significantly(App + Processor) and offers a scalable security solution in a mainstream environment. The SGX architecture is especially useful in cloud computing applications, since  data  and  computation  can  be  outsourced  to  an  external  computing  infrastructure  without having to fully trust the cloud provider and the entire software stack.
+A side-channel attack is an attempt to gain access to a system using additional (side-channel) information that should not be revealed. An analogy of such an attack is the use of a stethoscope to open a safe. The sound of the clicking tumblers is additional and unintentionally revealed “side-channel” information. The analogous safe in cryptography is a Trusted Execution Environment (TEE) which is used to process and store sensitive information. Encryption protecting this information is advanced, but there exist side-channel attacks that can circumvent it. Modern-day attacks draw on complex information like electromagnetic distortions and nanosecond time delays. Improvements are constantly made to reduce the amount of information leaked, but as it goes with anything of value, there will always be a better safe, and there will always be a better thief. 
+
+The problem with modern privacy-preserving networks is that they rely too heavily on the guarantees of an unbreakable enclave. If a single enclave is broken, the entire network is compromised. Some argue that side-channel vulnerabilities are exaggerated and pose no real-world risk, but testing those claims with information of significant value is not appealing. Rather than joining the race to “build a better safe”, we take a different approach. We eliminate the risk of any compromised network by utilising multiple storage devices. We split a private key into pieces such that any single piece is not usable by itself. To rebuild a key, we must combine a subset of pieces to meet a specified threshold (e.g. 3 of 5). This solution benefits from the combined security of all devices and dramatically reduces risk due to compromised enclaves. 
 
 ## User Experience
 
@@ -229,7 +239,7 @@ By virtue of it's architecture, Gridlock accounts are protected even if 2/5 of t
 
 #### Enigma Node Attack
 
-Enigma nodes utilize Intel Software Guard Extensions, which enable the execution of security-critical application code away from untrusted system software. This technology provides numerous safety guarantees that are much better than a standard compute server but is not an entirely secure system in its own right. In [10],  Lindell describes the extensive attack surface, including page, cache, energy management, and speculative execution side-channel attacks. Each of these attacks requires "rare and specialized expertise" to mitigate. This expertise is on the cutting edge, making Secret network attacks the bar to overcome. "Due to the rich variety of effective attacks, the assumption should be that data privacy is not afforded via software run inside SGX." and is the exact reason why Gridlock enforces a minority share distribution on Enigma (e.g. 2 out of 5 nodes).
+Enigma nodes utilize Intel Software Guard Extensions, which enable the execution of security-critical application code away from untrusted system software. This technology provides numerous safety guarantees that are much better than a standard compute server but is not an entirely secure system in its own right. In [10],  Lindell describes the extensive attack surface, including page, cache, energy management, and speculative execution side-channel attacks. Each of these attacks requires "rare and specialized expertise" to mitigate. This expertise is on the cutting edge, making Secret network attacks the bar to overcome. "Due to the rich variety of effective attacks, the assumption should be that data privacy is not afforded via software run inside an SGX." and is the exact reason why Gridlock enforces a minority share distribution on Enigma (e.g. 2 out of 5 nodes).
        
 #### Non-Enigma Node Attack
 Although the hardware security of additional nodes is comparatively lower to enigma nodes and thus more probable, Gridlock balances this by fragmenting the attack surface in multiple dimensions. The recommended Vault setup will involve a mix of differing hardware and software architectures. This improves strength by forcing attackers to exploit more than one architecture to compromise a vault, increasing difficulty exponentially for each added device. Architecture diversity does not protect against shared tenancy vulnerabilities which is why Gridlock users also benefit from fragmented device location. The protocol ensures each key share is not stored in the same environment, further isolating the threat of a compromised node.
