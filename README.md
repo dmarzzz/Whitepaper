@@ -1,6 +1,6 @@
 ![](gridlock_main_logo.png)
 
-## A secure and private cryptocurrency storage service
+## A secure and private cryptocurrency storage platform
 
 Author: Derek Rodriguez <br> Contributors:  Daniel Marzec, Franklin Willemen, Laura Weindorf
 
